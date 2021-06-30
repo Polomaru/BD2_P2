@@ -1,0 +1,2 @@
+df_t: frecuencia de documento del término t (el número de documentos que contiene a t)
+N: número total de documentos en la colección
