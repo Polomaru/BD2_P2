@@ -23,3 +23,12 @@ We need snscrape.
   sudo apt-get update
   pip install --upgrade git+https://github.com/JustAnotherArchivist/snscrape
   ```
+
+### Run
+
+```sh
+  python tweets.py
+  Ingrese query: efra
+```
+
+Then this will get all 200 first tweets with the word "efra" until 30-06-21.
