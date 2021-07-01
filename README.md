@@ -13,7 +13,7 @@ Segunda parte proyecto base de datos 2.
 * python 3.8 (LINUX)
 * pip
 * flask(?)
-* [snscrape] (https://github.com/JustAnotherArchivist/snscrape) 
+* [snscrape](https://github.com/JustAnotherArchivist/snscrape) 
 
 ### Prerequisites
 
