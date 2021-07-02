@@ -8,23 +8,22 @@ Segunda parte proyecto base de datos 2.
 * [Efraín Córdova](https://github.com/ecordovaa)
 * [David Soto](https://github.com/vid58)
 
-### Built With
+## Built With
 
 * python 3.8 (LINUX)
 * pip
 * flask(?)
 * [snscrape](https://github.com/JustAnotherArchivist/snscrape) 
 
-### Prerequisites
+## Prerequisites
 
 We need snscrape.
-* flex
-  ```sh
-  sudo apt-get update
-  pip install --upgrade git+https://github.com/JustAnotherArchivist/snscrape
-  ```
+```sh
+sudo apt-get update
+pip install --upgrade git+https://github.com/JustAnotherArchivist/snscrape
+```
 
-### Get N Json's
+## Get N Json's
 
 ```sh
   python data/tweets.py
@@ -56,7 +55,7 @@ Or [here.](https://twitter.com/search-advanced?lang=en-GB)
 
 
 
-### Reference
+## Reference
 
 How to use snscrape.
 
