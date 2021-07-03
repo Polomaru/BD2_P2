@@ -1,4 +1,4 @@
-const 
+ 
 const tabla = document.querySelector('#lista-twets tbody');
 
 function cargartwets(){
