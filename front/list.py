@@ -1,0 +1,7 @@
+lists = [
+    {"id": 1410025268002099202, "username": "raqueldlcrz", "date": "2021-06-29 23:59:55+00:00", "content": "no os confundais mi foto es por la eurocopa", "url": "https://twitter.com/raqueldlcrz/status/1410025268002099202"},
+    {"id": 1410025053677309956, "username": "shadowtw_", "date": "2021-06-29 23:59:04+00:00", "content": "Ya hemos visto el último partido en una Eurocopa de estrellas como Modric, Lewandowski, Neuer, Muller, Cristiano o Bale. Quiero pegarme un tiro.", "url": "https://twitter.com/shadowtw_/status/1410025053677309956"},
+    {"id": 1410025045326454789, "username": "GrardoTello", "date": "2021-06-29 23:59:02+00:00", "content": "Grupo F de Eurocopa, ya puedes relajarte", "url": "https://twitter.com/GrardoTello/status/1410025045326454789"},
+    {"id": 1410024830548819972, "username": "Logan_n16", "date": "2021-06-29 23:58:11+00:00", "content": "Doy mi palabra que si España gana la Eurocopa le pido salir a la niña que no para de dar vueltas en mi cabeza.", "url": "https://twitter.com/Logan_n16/status/1410024830548819972"},
+    {"id": 1410024827201667073, "username": "HebertSalas12", "date": "2021-06-29 23:58:10+00:00", "content": "Quién dijo que el Suecia-Ucrania sería aburrido? Esta Eurocopa ha sido la mejor y por mucho; no hay nada escrito hasta el último minuto  #EURO2020", "url": "https://twitter.com/HebertSalas12/status/1410024827201667073"}
+]
