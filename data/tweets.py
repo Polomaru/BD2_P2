@@ -14,7 +14,7 @@ for i,tweet in enumerate(sntwitter.TwitterSearchScraper(keyword + ' lang:es unti
         my_details = {
             
             'id': tweet.id,
-            'username' : tweet.username,
+            'username' : tweet.user.username,
             'date' : tweet.date,
             'content' : (tweet.content).replace("\n", " "),
             'url' : tweet.url
