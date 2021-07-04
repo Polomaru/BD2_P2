@@ -32,11 +32,6 @@ pip install --upgrade git+https://github.com/JustAnotherArchivist/snscrape
 ```
 Then this will get all 200 first tweets with the word "covid 19" until 30-06-21.
 
-### WARNING
-
-In the data/data.json, when you do the query, this will get the quotes like \", so if you want to use it, you need to change to ' .
-This will be easy with the ctrl+f and replace every \" to '
-
 ### If you want to change the query 
 
 In the line 11 in data/tweets.py, is the specific query in the search in twitter, if you want to change the parameters of the search, like the language or if you want only the retweets, got to that line. An example is:
