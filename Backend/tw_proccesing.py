@@ -12,7 +12,7 @@ class TweetProccesor:
         self.stemmer = stemmer = SnowballStemmer(language='spanish')
         with open('stoplist.txt') as sp:
             self.stoplist = nltk.word_tokenize(sp.read().lower())
-            self.stoplist += ["<", ">", ",", "º", ":", ";", ".", "!", "¿", "?", ")", "(", "@", "'", "#",'"','\"', '.', '...']
+            self.stoplist += ["<", ">", ",", "º", ":", ";", ".", "!", "¿", "?", ")", "(", "@", "'", "#",'"','\"', '.', '...', '....']
 
     #Para cada palabra en el tweet: si no es una stopword, la reduce a su raíz y la añade a un contenedor
     #Al final, se retorna ese vector
@@ -20,4 +20,4 @@ class TweetProccesor:
     def tokenize(self, tweet):
         #Remover los emojis.
         tweet = tweet.encode('ascii', 'ignore').decode('ascii')
-        return [self.stemmer.stem(t) for t in nltk.word_tokenize(tweet) if t not in self.stoplist]
+        return [self.stemmer.stem(t) for t in nltk.word_tokenize(tweet.lower()) if t not in self.stoplist]
