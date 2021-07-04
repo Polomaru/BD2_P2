@@ -1,4 +1,4 @@
- 
+
 const tabla = document.querySelector('#lista-twets tbody');
 
 function cargartwets(){
@@ -17,6 +17,6 @@ function cargartwets(){
 
             });
         })   
-        .cath(error => console.log('Se produjo un error '+ error.message))
+        .catch(error => console.log('Se produjo un error '+ error.message))
 }
 cargartwets();

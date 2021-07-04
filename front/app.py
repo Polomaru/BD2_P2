@@ -4,7 +4,7 @@ app = Flask(__name__)
 
 from list import lists
   
-@app.route('/ping')
+@app.route('/')
 def ping():
     return jsonify ({"message":"pong!"})
 
@@ -19,10 +19,10 @@ def getlist(username):
         return jsonify(({"product":listfound[0]}))
     return jsonify({"message": "product nnot found"})
 
-@app.route("/html")
+@app.route("/html", strict_slashes=False)
 def home():
     return render_template("index.html")
   
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True,port=5831)
