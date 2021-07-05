@@ -58,13 +58,12 @@ class InvertedIndex:
                 json_file.truncate(0)
                 json_file.write(json.dumps(inverted_index, ensure_ascii=False, default=str))
 
-        lengths_file = open('lengths.json', 'a', newline='\n', encoding='utf8')
+        lengths_file = open('resources/lengths.json', 'a', newline='\n', encoding='utf8')
         lengths_file.truncate(0)
         lengths_file.write(json.dumps(lengths, ensure_ascii=False, default=str))    
     
     
     def __merge(self):
-        path = './indexs'
         # arr = os.listdir(path)
         inverted_index = {}
 
@@ -83,7 +82,7 @@ class InvertedIndex:
             os.remove(f_name)
         
         #Escribimos el índice completo
-        json_file = open('i_index.json', 'a', newline='\n', encoding='utf8')
+        json_file = open('resources/i_index.json', 'a', newline='\n', encoding='utf8')
         json_file.truncate(0)
         json_file.write(json.dumps(inverted_index, ensure_ascii=False, default=str))
 
@@ -109,11 +108,11 @@ def process_query(query, k, n):
     print(tokens)
     #Leemos el index desde un archivo (memoria secundaria)
     tweets = {}
-    with open('i_index.json', "r") as index:
+    with open('resources/i_index.json', "r") as index:
         i_dic = index.readline()
         i_dic = json.loads(i_dic)
         
-    with open('lengths.json', "r") as lens:
+    with open('resources/lengths.json', "r") as lens:
         lengths = lens.readline()
         lengths = json.loads(lengths)
     #Calculamos la distancia de coseno:
@@ -182,7 +181,7 @@ def do_query():
         json_line = json.loads(json_line)
         jsonrpta[cont] = json_line
         cont +=1
-    json_file = open('rpta.json', 'a', newline='\n', encoding='utf8')
+    json_file = open('resources/rpta.json', 'a', newline='\n', encoding='utf8')
     json_file.truncate(0)
     json_file.write(json.dumps(jsonrpta, indent = 6 , ensure_ascii=False))
 

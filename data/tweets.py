@@ -7,7 +7,7 @@ def sizeint(n):
         return int(math.log10(n))+1
     elif n == 0:
         return 1
-        
+
 class creator_index:
 
     def __init__(self) -> None:
@@ -16,8 +16,8 @@ class creator_index:
         # keyword = input('Enter a topic or keyword, please: ')
         # maxTweets = int(input('Enter the number of max tweets:  '))
 
-        json_file = open('data1.json', 'a', newline='\n', encoding='utf8')
-        index_file = open('index1.txt', 'a', newline='\n', encoding='utf8')
+        json_file = open('data.json', 'a', newline='\n', encoding='utf8')
+        index_file = open('index.txt', 'a', newline='\n', encoding='utf8')
         json_file.truncate(0)
         index_file.truncate(0)
         cont = 0
