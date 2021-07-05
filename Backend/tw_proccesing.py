@@ -3,6 +3,18 @@ from nltk import tokenize
 from nltk.tokenize import TweetTokenizer
 from nltk.stem.snowball import SnowballStemmer
 
+def normalize(s):
+    replacements = (
+        ("á", "a"),
+        ("é", "e"),
+        ("í", "i"),
+        ("ó", "o"),
+        ("ú", "u"),
+    )
+    for a, b in replacements:
+        s = s.replace(a, b)
+    return s
+
 class TweetProccesor:
     #Crea un stemmer óptimo para el lenguaje español
     #Crea la stoplist leyendo más de 600 stopwords
@@ -19,5 +31,6 @@ class TweetProccesor:
     #Complejidad: O(n*K) donde K es la cantidad de palabras en la stoplist.
     def tokenize(self, tweet):
         #Remover los emojis.
+        tweet = normalize(tweet)
         tweet = tweet.encode('ascii', 'ignore').decode('ascii')
         return [self.stemmer.stem(t) for t in nltk.word_tokenize(tweet.lower()) if t not in self.stoplist]
