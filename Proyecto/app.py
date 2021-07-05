@@ -1,18 +1,20 @@
-from flask import Flask, jsonify, render_template, request,Response
+from flask import Flask, render_template, request
 import json
-
+from inverted_index import *
 
 app = Flask(__name__)
 
-from list import lists
-  
 @app.route('/')
-def ping():
+def home():
     return render_template("index.html")
 
+@app.route('/search', methods=['GET', 'POST'])
+def search():
+    do_query()
+    with open('resources/rpta.json') as file:
+        return render_template("results.html",data=json.load(file))
 
 
-#twets
 '''
 @app.route('/twets')
 def read_twet():
@@ -24,15 +26,11 @@ def read_twet():
         print('Age:', client['age'])
         print('Amount:', client['amount'])
         print('')
-'''
+
 @app.route('/colors')
 def show_tweets():
     return render_template("index3.html")
-
-
-
-
-
+'''
 
 if __name__ == "__main__":
     app.run(debug=True,port=5820)

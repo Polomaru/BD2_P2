@@ -1,13 +1,13 @@
 import json
 import math
 import numpy as np
+from tw_proccesing import TweetProccesor
 import os
 import sys
 from glob import glob
-sys.path.append('../data')
+sys.path.append('static/data')
 from tweets import creator_index
 from heapq import heappop, heappush, heapify
-from tw_proccesing import TweetProccesor
 
 #Constantes
 size_tweets = 20000
@@ -21,7 +21,7 @@ class InvertedIndex:
         #par (term_freq, tweet).
         tw_index = 1
         lengths = {}
-        with open("../data/data.json", "r") as file:
+        with open("static/data/data.json", "r") as file:
             for j in range(math.ceil(n/block)):
                 term_freq = {}
                 for i in range(block):
@@ -160,11 +160,11 @@ def change_index_theme():
 
 #Procesar consulta    
 def do_query():
-    q = input("Ingrese la query que quiere obtener: ")
-    qns = int(input("Ingrese cuantos tweets quiere recuperar, como máximo: "))
+    q = 'muertes covid junio'
+    qns = 10
     rpta = process_query(q,qns,size_tweets)
-    indexs = open("../data/index.txt", "r")
-    tweets = open("../data/data.json", "r")
+    indexs = open("static/data/index.txt", "r")
+    tweets = open("static/data/data.json", "r")
     jsonrpta = {}
     cont = 0
 

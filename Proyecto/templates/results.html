@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+
+    <title>· Retrieved Tweets ·</title>
+</head>
+
+<div class="container">
+    <div style="background:transparent !important" class="jumbotron">
+      <div style="font-family: 'Pacifico', cursive;">
+        <p>
+          <center>
+          <font size="8">Realizar consulta de texto libre: </font>
+          </center>
+        </p>
+      </div>
+    </div>
+
+  <form action="/search/results" method="post">
+    <div class="input-group">
+      <input type="text" class="form-control input-lg" name="input" placeholder="Search"  autofocus>
+      <div class="input-group-btn">
+        <button class="btn btn-primary btn-lg" type="submit">
+          <i class="glyphicon glyphicon-search"></i>
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <center>
+      <h1>Results: ({{ len(data) }}) </h1>
+  </center>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Date Stamp</th>
+        <th>Source</th>
+        <th>Title</th>
+        <th>Tags</th>
+      </tr>
+    </thead>
+
+{% for tweet in data %}
+    <tbody>
+      <tr>
+        <th scope="row">{{ tweet['id'] }}</th>
+          <td>{{ tweet['username'] }}</td>
+          <td>{{ tweet['content'] }}</td>
+          <td>{{ tweet['date'] }}</td>
+          <td><a href='#'>{{ tweet['url'] }}</a></td>
+          <td>{{ tweet['score'] }}</td>
+      </tr>
+    </tbody>
+{% endfor %}
+  </table>
+
+        <footer class="footer">
+          <p>&copy; 2021 Base de Datos II. Proyecto 2</p>
+        </footer>
+
+      </div>
+    </div>
+  </body>
+</html>
