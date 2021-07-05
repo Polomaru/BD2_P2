@@ -14,13 +14,9 @@ size_tweets = 20000
 tp = TweetProccesor()
 
 class InvertedIndex:
-    
-    def __init__(self) -> None:
-        pass
         
     #Llamamos a la funcion para llenar un bucket. Estamos definiendo tamaño de bucket = 500. 
     def __build_inverted_index(self, n, block):
-
         #Llenamos la frecuencia de documento para cada term y la frecuencia de termino para cada
         #par (term_freq, tweet).
         tw_index = 1
@@ -47,6 +43,7 @@ class InvertedIndex:
                         else:
                             term_freq[term].append((1 + math.log10(terms[term][0]), terms[term][1]))
                     tw_index += 1
+
                 inverted_index = {}
                 for word in term_freq:
                     #Guardamos las frecuencias de cada termino
@@ -54,6 +51,7 @@ class InvertedIndex:
                         "DF": len(term_freq[word]), 
                         "TF": term_freq[word]
                     }
+
                 json_file = open('indexs/i' + str(j) +'.json', 'a', newline='\n', encoding='utf8')
                 json_file.truncate(0)
                 json_file.write(json.dumps(inverted_index, ensure_ascii=False, default=str))
@@ -61,10 +59,9 @@ class InvertedIndex:
         lengths_file = open('resources/lengths.json', 'a', newline='\n', encoding='utf8')
         lengths_file.truncate(0)
         lengths_file.write(json.dumps(lengths, ensure_ascii=False, default=str))    
-    
+        return
     
     def __merge(self):
-        # arr = os.listdir(path)
         inverted_index = {}
 
         #Leemos los índices intermedios
@@ -85,17 +82,18 @@ class InvertedIndex:
         json_file = open('resources/i_index.json', 'a', newline='\n', encoding='utf8')
         json_file.truncate(0)
         json_file.write(json.dumps(inverted_index, ensure_ascii=False, default=str))
+        return
 
     def BSB_index_construction(self):
         block = 500
         self.__build_inverted_index(size_tweets, block)
         self.__merge()
-
-
+        return
 
 def process_query(query, k, n):
     tokens = tp.tokenize(query)
     norm = len(tokens)
+
     #Obtenemos la frecuencia de las palabras en la query
     query_words = {}
 
@@ -105,7 +103,6 @@ def process_query(query, k, n):
         else:
             query_words[q] += 1
 
-    print(tokens)
     #Leemos el index desde un archivo (memoria secundaria)
     tweets = {}
     with open('resources/i_index.json', "r") as index:
@@ -115,8 +112,8 @@ def process_query(query, k, n):
     with open('resources/lengths.json', "r") as lens:
         lengths = lens.readline()
         lengths = json.loads(lengths)
-    #Calculamos la distancia de coseno:
 
+    #Calculamos la distancia de coseno:
     for q in query_words:
         if i_dic.get(q) != None:
             i = i_dic[q]
@@ -124,7 +121,6 @@ def process_query(query, k, n):
             qq = round((1 + math.log10(query_words[q])) * (math.log10(n /i['DF'])) / norm, 4)
             for tweet in i['TF']:
                 #Sumamos a un documento el puntaje que va consiguiendo (con dist. de coseno)
-                # print(tweet)
                 cosine = round(tweet[0] * (math.log10( n /i['DF'])) / lengths[str(tweet[1])] * qq, 4) 
                 if tweets.get(tweet[1]) == None:
                     tweets[tweet[1]] = cosine
@@ -132,23 +128,24 @@ def process_query(query, k, n):
                     tweets[tweet[1]] += cosine
     heap = []
 
-    #Debemos hacer una segunda pasada porque los cosenos podrían haberse modificado...
-    for tweet in tweets:
-        heappush(heap, (-1 * tweets[tweet], tweet))
+    #k critico para el cual a partir de k+1 la fila de prioridades es peor que el sorting
+    #Ver informe para un analisis preciso de esta situación.
+    if k <= 17200:
+        #Debemos hacer una segunda pasada porque los cosenos podrían haberse modificado...
+        for tweet in tweets:
+            heappush(heap, (-1 * tweets[tweet], tweet))
 
-    #No queremos mostrar los 20K tweets al usuario, asi que nos quedamos solo con los K más relevantes
-    retrieved = {}
-    for i in range(min(k,len(tweets))):
-        retrieved[heap[0][1]] = -1 * heap[0][0] 
-        heappop(heap)
-        heapify(heap)
-    print(retrieved)
-    return retrieved
+        #No queremos mostrar los 20K tweets al usuario, asi que nos quedamos solo con los K más relevantes
+        retrieved = {}
+        for i in range(min(k,len(tweets))):
+            retrieved[heap[0][1]] = -1 * heap[0][0] 
+            heappop(heap)
+            heapify(heap)
+        return retrieved
 
-#Cargar datos de un temática
-def make_index(): 
-    ii=InvertedIndex()
-    ii.BSB_index_construction()
+    else:
+        return dict(sorted(tweets.items())[:k])
+
     
 #Cambiar la temática de los tweets
 def change_index_theme():
@@ -159,18 +156,19 @@ def change_index_theme():
     index_creator.make_new_index(keyword, maxtweets)
     ii = InvertedIndex()
     ii.BSB_index_construction()
+    return
 
 #Procesar consulta    
 def do_query():
     q = input("Ingrese la query que quiere obtener: ")
     qns = int(input("Ingrese cuantos tweets quiere recuperar, como máximo: "))
-
     rpta = process_query(q,qns,size_tweets)
     indexs = open("../data/index.txt", "r")
     tweets = open("../data/data.json", "r")
     jsonrpta = {}
     cont = 0
-    for n in rpta.keys():
+
+    for n in rpta:
         indexs.seek(0,0)
         tweets.seek(0,0)
         indexs.read((n-1)*10)
@@ -182,13 +180,11 @@ def do_query():
         json_line['score'] = rpta[n]
         jsonrpta[cont] = json_line
         cont +=1
+
     json_file = open('resources/rpta.json', 'a', newline='\n', encoding='utf8')
     json_file.truncate(0)
     json_file.write(json.dumps(jsonrpta, indent = 6 , ensure_ascii=False))
+    return
 
 if __name__ == "__main__":
     do_query()
-    #BORRAR COMENTARIO: En el front, den la posibilidad de probar con k = 1,2,4,8,16,32 y 64
-    
-    
-    # print(ii.process_query('covid enfermar', 2))
