@@ -3,8 +3,9 @@ import math
 import numpy as np
 import os
 import sys
+from glob import glob
 sys.path.append('../data')
-from tweets import make_new_index
+from tweets import creator_index
 from heapq import heappop, heappush, heapify
 from tw_proccesing import TweetProccesor
 
@@ -64,12 +65,12 @@ class InvertedIndex:
     
     def __merge(self):
         path = './indexs'
-        arr = os.listdir(path)
+        # arr = os.listdir(path)
         inverted_index = {}
 
         #Leemos los índices intermedios
-        for file in arr:
-            with open(path+ '/'+file, "r") as index:
+        for f_name in glob('./indexs/*.json'):
+            with open(f_name, "r") as index:
                 i_dic = index.readline()
                 i_dic = json.loads(i_dic)
             #Colocamos las frecuencias. Recuerde que el IDF se calcula en la misma función de similitud
@@ -79,7 +80,7 @@ class InvertedIndex:
                 else:
                     inverted_index[k]['TF']+=(i_dic[k]['TF'])
                     inverted_index[k]['DF']+=(i_dic[k]['DF'])
-            os.remove(path+ '/'+file)
+            os.remove(f_name)
         
         #Escribimos el índice completo
         json_file = open('i_index.json', 'a', newline='\n', encoding='utf8')
@@ -116,7 +117,7 @@ def process_query(query, k, n):
         lengths = lens.readline()
         lengths = json.loads(lengths)
     #Calculamos la distancia de coseno:
-    
+
     for q in query_words:
         if i_dic.get(q) != None:
             i = i_dic[q]
@@ -153,8 +154,10 @@ def make_index():
 #Cambiar la temática de los tweets
 def change_index_theme():
     keyword = input("Keyword: ")
-    maxtweets = input ("maxtweets")
-    make_new_index(keyword, maxtweets)
+    maxtweets = int(input ("Maxtweets: "))
+
+    index_creator = creator_index()
+    index_creator.make_new_index(keyword, maxtweets)
     ii = InvertedIndex()
     ii.BSB_index_construction()
 
@@ -162,6 +165,7 @@ def change_index_theme():
 def do_query():
     q = input("Ingrese la query que quiere obtener: ")
     qns = int(input("Ingrese cuantos tweets quiere recuperar, como máximo: "))
+
     rpta = process_query(q,qns,size_tweets)
     indexs = open("../data/index.txt", "r")
     tweets = open("../data/data.json", "r")
@@ -174,14 +178,13 @@ def do_query():
         line_tweet1 = int(indexs.read(10))
         line_tweet2 = int(indexs.read(10))
         tweets.read(line_tweet1)
-        json = tweets.read(line_tweet2 - line_tweet1)
-        jsonrpta[cont] = json
+        json_line = tweets.read(line_tweet2 - line_tweet1-1)
+        json_line = json.loads(json_line)
+        jsonrpta[cont] = json_line
         cont +=1
-        print(json)
-    # print(jsonrpta)
-    # json_file = open('rpta.json', 'a', newline='\n', encoding='utf8')
-    # json_file.truncate(0)
-    # json_file.write(json.dumps(jsonrpta, indent = 6 , ensure_ascii=False))
+    json_file = open('rpta.json', 'a', newline='\n', encoding='utf8')
+    json_file.truncate(0)
+    json_file.write(json.dumps(jsonrpta, indent = 6 , ensure_ascii=False))
 
 if __name__ == "__main__":
     do_query()
