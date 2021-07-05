@@ -2,7 +2,7 @@
 const tabla = document.querySelector('#lista-twets tbody');
 
 function cargartwets() {
-    fetch('../tweets_2021-06-22.json')
+    fetch('/static/tweets_2021-06-22.json')
         .then(respuesta => respuesta.json())
         .then(salida => {
             salida.forEach(salida => {

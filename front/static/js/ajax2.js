@@ -5,7 +5,7 @@ function Datos(){
 
     const xhttp = new XMLHttpRequest();
 
-    xhttp.open('GET','../tweets_2021-06-22.json',true);
+    xhttp.open('GET','/static/tweets_2021-06-22.json',true);
 
     xhttp.send();
 
