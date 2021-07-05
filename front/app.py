@@ -1,4 +1,6 @@
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, render_template, request,Response
+import json
+
 
 app = Flask(__name__)
 
@@ -6,23 +8,31 @@ from list import lists
   
 @app.route('/')
 def ping():
-    return jsonify ({"message":"pong!"})
-
-@app.route('/list')
-def getlists():
-    return jsonify({"Lista":lists, "message":"Product's list"})
-
-@app.route('/list/<string:username>')
-def getlist(username):
-    listfound = [list for list in lists if list ['username'] == username]
-    if (len(listfound)>0):
-        return jsonify(({"product":listfound[0]}))
-    return jsonify({"message": "product nnot found"})
-
-@app.route("/html", strict_slashes=False)
-def home():
     return render_template("index.html")
-  
+
+
+
+#twets
+'''
+@app.route('/twets')
+def read_twet():
+    with open('tweets_2021-06-22.json') as file:
+    data = json.load(file)
+    for client in data['clients']:
+        print('First name:', client['first_name'])
+        print('Last name:', client['last_name'])
+        print('Age:', client['age'])
+        print('Amount:', client['amount'])
+        print('')
+'''
+@app.route('/colors')
+def show_tweets():
+    return render_template("index3.html")
+
+
+
+
+
 
 if __name__ == "__main__":
-    app.run(debug=True,port=5831)
+    app.run(debug=True,port=5820)
