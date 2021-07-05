@@ -153,7 +153,7 @@ def make_index():
 #Cambiar la temática de los tweets
 def change_index_theme():
     keyword = input("Keyword: ")
-    maxtweets = int(input ("Maxtweets: "))
+    maxtweets = 20000
 
     index_creator = creator_index()
     index_creator.make_new_index(keyword, maxtweets)
@@ -179,6 +179,7 @@ def do_query():
         tweets.read(line_tweet1)
         json_line = tweets.read(line_tweet2 - line_tweet1-1)
         json_line = json.loads(json_line)
+        json_line['score'] = rpta[n]
         jsonrpta[cont] = json_line
         cont +=1
     json_file = open('resources/rpta.json', 'a', newline='\n', encoding='utf8')
