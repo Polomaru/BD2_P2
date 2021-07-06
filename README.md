@@ -4,7 +4,7 @@ Segunda parte proyecto base de datos 2.
 
 ## Enlaces
 
-* [Página (aún en construcción)](https://tweetsretrieval.herokuapp.com)
+* [Página](https://tweetsretrieval.herokuapp.com)
 * [Enlace público vídeo](https://drive.google.com/drive/folders/1cyDiACOwIBVAhRcoOxHjgOYv4-o3cUG0?usp=sharing)
 
 ## Autors
