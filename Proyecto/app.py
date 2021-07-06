@@ -38,7 +38,7 @@ def search():
     return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
 
 if __name__ == "__main__":
-    # ii = InvertedIndex()
-    # ii.BSB_index_construction()
+    ii = InvertedIndex()
+    ii.BSB_index_construction()
     app.secret_key = ".."
     app.run(port=8080, threaded=True, host=('127.0.0.1'))
