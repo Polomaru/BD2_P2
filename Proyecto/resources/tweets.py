@@ -15,8 +15,8 @@ class creator_index:
 
     def make_new_index(self, keyword, maxTweets):
 
-        json_file = open('resources/data1.json', 'a', newline='\n', encoding='utf8')
-        index_file = open('resources/index1.txt', 'a', newline='\n', encoding='utf8')
+        json_file = open('resources/data.json', 'a', newline='\n', encoding='utf8')
+        index_file = open('resources/index.txt', 'a', newline='\n', encoding='utf8')
         json_file.truncate(0)
         index_file.truncate(0)
         cont = 0

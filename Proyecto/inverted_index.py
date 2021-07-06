@@ -20,7 +20,7 @@ class InvertedIndex:
         #par (term_freq, tweet).
         tw_index = 1
         lengths = {}
-        with open("resources/data1.json", "r") as file:
+        with open("resources/data.json", "r") as file:
             for j in range(math.ceil(n/block)):
                 term_freq = {}
                 for i in range(block):
@@ -159,8 +159,8 @@ def change_index_theme(keyword, maxtweets):
 #Procesar consulta    
 def do_query(q,qns):
     rpta = process_query(q,qns,size_tweets)
-    indexs = open("resources/index1.txt", "r")
-    tweets = open("resources/data1.json", "r")
+    indexs = open("resources/index.txt", "r")
+    tweets = open("resources/data.json", "r")
     jsondic = []
     json_file = open('static/data/rpta.json', 'a', newline='\n', encoding='utf8')
     json_file.truncate(0)
