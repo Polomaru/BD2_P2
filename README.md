@@ -15,7 +15,7 @@ Segunda parte proyecto base de datos 2.
 
 ## Built With
 
-* python 3.8 (LINUX)
+* python 
 * pip
 * flask(?)
 * [snscrape](https://github.com/JustAnotherArchivist/snscrape) 
