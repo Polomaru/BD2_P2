@@ -9,7 +9,6 @@ sys.path.append('resources')
 from tweets import creator_index
 from heapq import heappop, heappush, heapify
 
-#Constantes
 size_tweets = 20000
 tp = TweetProccesor()
 
@@ -21,7 +20,7 @@ class InvertedIndex:
         #par (term_freq, tweet).
         tw_index = 1
         lengths = {}
-        with open("resources/data.json", "r") as file:
+        with open("resources/data1.json", "r") as file:
             for j in range(math.ceil(n/block)):
                 term_freq = {}
                 for i in range(block):
@@ -130,7 +129,7 @@ def process_query(query, k, n):
 
     #k critico para el cual a partir de k+1 la fila de prioridades es peor que el sorting
     #Ver informe para un analisis preciso de esta situación.
-    if k <= 17200:
+    if ((n - k) * math.log2(n)/n) > 2:
         #Debemos hacer una segunda pasada porque los cosenos podrían haberse modificado...
         for tweet in tweets:
             heappush(heap, (-1 * tweets[tweet], tweet))
@@ -149,18 +148,19 @@ def process_query(query, k, n):
     
 #Cambiar la temática de los tweets
 def change_index_theme(keyword, maxtweets):
+    global size_tweets
+    size_tweets = maxtweets
     index_creator = creator_index()
     index_creator.make_new_index(keyword, maxtweets)
-    # ii = InvertedIndex()
-    # ii.BSB_index_construction()
+    ii = InvertedIndex()
+    ii.BSB_index_construction()
     return
 
 #Procesar consulta    
-def do_query(q):
-    qns = 20
+def do_query(q,qns):
     rpta = process_query(q,qns,size_tweets)
-    indexs = open("resources/index.txt", "r")
-    tweets = open("resources/data.json", "r")
+    indexs = open("resources/index1.txt", "r")
+    tweets = open("resources/data1.json", "r")
     jsondic = []
     json_file = open('static/data/rpta.json', 'a', newline='\n', encoding='utf8')
     json_file.truncate(0)

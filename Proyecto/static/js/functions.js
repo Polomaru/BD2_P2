@@ -27,6 +27,7 @@ function search()
 
     let mydata = {
         "search": search,
+        "k": $('#k').val()
     }
     mydata = JSON.stringify(mydata);
 

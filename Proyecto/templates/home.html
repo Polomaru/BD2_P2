@@ -11,7 +11,8 @@
             <div class = "table-responsive">
                 <h1> Json</h1>
                 <br/>
-                <input id="search" placeholder="newtheme">
+                <input id="search" placeholder="Search">
+                <input id="k" placeholder="N-items(?)">
                 <button type="button" onclick="search()"> search</button>
 
                 <a href="/reindex" style="color:cornflowerblue">want to change the theme?</a>
@@ -40,7 +41,7 @@
                 rpta += "<td>"+value.username+"</td>";
                 rpta += "<td>"+value.date+"</td>";
                 rpta += "<td>"+value.content+"</td>";
-                rpta += "<td>"+value.url+"</td>";
+                rpta += "<td><a href=" + value.url+" target=\"_blank\">"+value.url+"</a></td>";
                 rpta += "<td>"+value.score+"</td>";
                 rpta += "</tr>";
             });
