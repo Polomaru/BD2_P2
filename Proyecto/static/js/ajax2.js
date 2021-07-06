@@ -5,7 +5,7 @@ function Datos(){
 
     const xhttp = new XMLHttpRequest();
 
-    xhttp.open('GET','/static/tweets_2021-06-22.json',true);
+    xhttp.open('GET','/static/data/rpta.json',true);
 
     xhttp.send();
 
@@ -19,10 +19,11 @@ function Datos(){
             for(let item of datos){
                 res.innerHTML +=`
                 <tr>
-                <td>${item.id}</td>
+                <td>${item.username}</td>
                 <td>${item.date}</td>
-                <td>${item.text}</td>
-                <td>${item.user_name}</td>
+                <td>${item.content}</td>
+                <td>${item.url}</td>
+                <td>${item.score}</td>
                 </tr>
                 `;
             }

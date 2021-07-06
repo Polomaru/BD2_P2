@@ -6,10 +6,13 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return render_template("index.html")
+    return render_template("index3.html")
 
-@app.route('/search', methods=['GET', 'POST'])
+@app.route('/search')
 def search():
+    return render_template("index3.html")
+@app.route('/reindex')
+def reindex():
     do_query()
     with open('resources/rpta.json') as file:
         return render_template("results.html",data=json.load(file))

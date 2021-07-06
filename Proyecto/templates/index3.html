@@ -13,40 +13,7 @@
 
     <script type="text/javascript" src="../static/js/ajax2.js"></script>
 
-    <!--<script type="text/javascript">
-        function Datos() {
-
-            const xhttp = new XMLHttpRequest();
-
-            xhttp.open('GET', '../tweets_2021-06-22.json', true);
-
-            xhttp.send();
-
-            xhttp.onreadystatechange = function () {
-
-                if (this.readyState == 4 && this.status == 200) {
-                    let datos = JSON.parse(this.responseText);
-                    let res = document.querySelector('#res');
-                    res.innerHTML = '';
-
-                    for (let item of datos) {
-                        res.innerHTML += `
-                        <tr>
-                        <td>${item.id}</td>
-                        <td>${item.date}</td>
-                        <td>${item.text}</td>
-                        <td>${item.user_name}</td>
-                        </tr>
-                        `;
-                    }
-                    $('#lista-twets').DataTable;
-                }
-            }
-
-        }
-    </script>-->
-
-    <title>FETCH</title>
+    <title>Consultas</title>
 </head>
 
 <body>
@@ -61,10 +28,11 @@
                     <table class="table" id="lista-twets">
                         <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>DATE</th>
-                                <th>TEXT</th>
-                                <th>USER_NAME</th>
+                                <th>username</th>
+                                <th>date</th>
+                                <th>content</th>
+                                <th>url</th>
+                                <th>score</th>
                             </tr>
                         </thead>
                         <tbody id="res">

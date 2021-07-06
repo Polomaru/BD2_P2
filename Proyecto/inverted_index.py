@@ -5,7 +5,7 @@ from tw_proccesing import TweetProccesor
 import os
 import sys
 from glob import glob
-sys.path.append('static/data')
+sys.path.append('resources')
 from tweets import creator_index
 from heapq import heappop, heappush, heapify
 
@@ -21,7 +21,7 @@ class InvertedIndex:
         #par (term_freq, tweet).
         tw_index = 1
         lengths = {}
-        with open("static/data/data.json", "r") as file:
+        with open("resources/data.json", "r") as file:
             for j in range(math.ceil(n/block)):
                 term_freq = {}
                 for i in range(block):
@@ -65,7 +65,7 @@ class InvertedIndex:
         inverted_index = {}
 
         #Leemos los índices intermedios
-        for f_name in glob('./indexs/*.json'):
+        for f_name in glob('resources/indexs/*.json'):
             with open(f_name, "r") as index:
                 i_dic = index.readline()
                 i_dic = json.loads(i_dic)
@@ -163,11 +163,11 @@ def do_query():
     q = 'muertes covid junio'
     qns = 10
     rpta = process_query(q,qns,size_tweets)
-    indexs = open("static/data/index.txt", "r")
-    tweets = open("static/data/data.json", "r")
-    jsonrpta = {}
-    cont = 0
-
+    indexs = open("resources/index.txt", "r")
+    tweets = open("resources/data.json", "r")
+    jsondic = []
+    json_file = open('static/data/rpta.json', 'a', newline='\n', encoding='utf8')
+    json_file.truncate(0)
     for n in rpta:
         indexs.seek(0,0)
         tweets.seek(0,0)
@@ -178,12 +178,11 @@ def do_query():
         json_line = tweets.read(line_tweet2 - line_tweet1-1)
         json_line = json.loads(json_line)
         json_line['score'] = rpta[n]
-        jsonrpta[cont] = json_line
-        cont +=1
+        jsondic.append(json_line)
+        
+    json_file.write(json.dumps(jsondic, indent = 6 , ensure_ascii=False))
+    
 
-    json_file = open('resources/rpta.json', 'a', newline='\n', encoding='utf8')
-    json_file.truncate(0)
-    json_file.write(json.dumps(jsonrpta, indent = 6 , ensure_ascii=False))
     return
 
 if __name__ == "__main__":
