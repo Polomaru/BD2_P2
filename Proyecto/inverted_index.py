@@ -52,7 +52,7 @@ class InvertedIndex:
                         "TF": term_freq[word]
                     }
 
-                json_file = open('indexs/i' + str(j) +'.json', 'a', newline='\n', encoding='utf8')
+                json_file = open('resources/indexs/i' + str(j) +'.json', 'a', newline='\n', encoding='utf8')
                 json_file.truncate(0)
                 json_file.write(json.dumps(inverted_index, ensure_ascii=False, default=str))
 
@@ -148,20 +148,16 @@ def process_query(query, k, n):
 
     
 #Cambiar la temática de los tweets
-def change_index_theme():
-    keyword = input("Keyword: ")
-    maxtweets = 20000
-
+def change_index_theme(keyword, maxtweets):
     index_creator = creator_index()
     index_creator.make_new_index(keyword, maxtweets)
-    ii = InvertedIndex()
-    ii.BSB_index_construction()
+    # ii = InvertedIndex()
+    # ii.BSB_index_construction()
     return
 
 #Procesar consulta    
-def do_query():
-    q = 'muertes covid junio'
-    qns = 10
+def do_query(q):
+    qns = 20
     rpta = process_query(q,qns,size_tweets)
     indexs = open("resources/index.txt", "r")
     tweets = open("resources/data.json", "r")
@@ -181,9 +177,4 @@ def do_query():
         jsondic.append(json_line)
         
     json_file.write(json.dumps(jsondic, indent = 6 , ensure_ascii=False))
-    
-
     return
-
-if __name__ == "__main__":
-    do_query()
